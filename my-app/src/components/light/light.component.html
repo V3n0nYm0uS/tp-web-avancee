@@ -1,0 +1,10 @@
+<div class="flex flex-col items-center justify-center gap-3">
+  <div
+    class="w-40 h-40 flex justify-center items-center transition ease-in"
+    (click)="switchLight(light)"
+    [ngClass]="light.toggled ? 'bg-yellow-400' : 'bg-black'"
+  >
+    <span class="text-white">{{ light.toggled ? "on" : "off" }}</span>
+  </div>
+  <div>{{ light.title }}</div>
+</div>
