@@ -1,33 +1,27 @@
 import { Component } from '@angular/core';
 import { NgClass, NgFor } from '@angular/common';
 import { LightComponent } from '../light/light.component';
+import { LightService } from '../../services/light.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-light-page',
   standalone: true,
-  imports: [NgClass, NgFor, LightComponent],
+  imports: [NgClass, NgFor, LightComponent, FormsModule],
   templateUrl: './light-page.component.html',
   styleUrl: './light-page.component.css'
 })
 export class LightPageComponent {
 
-  lightObject: any = {
-    toggled: false,
-    title: "Lampe 1"
+  light = {
+    name: '',
+    color: ''
+  };
+
+  constructor(protected lightService: LightService){}
+
+  handleTrigger(id: number){
+    this.lightService.removeLight(id);
   }
-
-  lightArray: any[] = [{
-    toggled: false,
-    title: "Lampe 1"
-  },
-  {
-    toggled: false,
-    title: "Lampe 2"
-  },
-  {
-    toggled: false,
-    title: "Lampe 3"
-  }];
-
 
 }
