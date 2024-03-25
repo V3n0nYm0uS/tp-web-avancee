@@ -26,6 +26,7 @@
       <app-light
         [light]="light"
         (trigger)="handleTrigger(light.id)"
+        (toggled)="switchLight(light)"
       ></app-light>
     </div>
   </div>

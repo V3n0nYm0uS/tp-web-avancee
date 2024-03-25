@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,30 +6,18 @@ import { Injectable } from '@angular/core';
 })
 export class LightService {
 
-  lightObject: any = {
-    toggled: false,
-    title: "Lampe 1"
+  private lightArray: any[] = [];
+
+
+  constructor(private httpClient: HttpClient) {
+    this.refreshLights();
   }
 
-  private lightArray: any[] = [{
-    id: 1,
-    toggled: false,
-    title: "Lampe 1"
-  },
-  {
-    id: 2,
-    toggled: false,
-    title: "Lampe 2"
-  },
-  {
-    id: 3,
-    toggled: false,
-    title: "Lampe 3"
-  }];
-
-  private nextId: number = 4;
-
-  constructor() { }
+  refreshLights(){
+    this.httpClient.get("/api/lights").subscribe((lights: any) => {
+      this.lightArray = lights;
+    })
+  }
 
   getAllLight(): any[] {
     return this.lightArray;
@@ -36,17 +25,28 @@ export class LightService {
 
   addLight(title: String, color: String){
     let light = {
-      id:this.nextId,
       toggled: false,
       title: title,
       color: color
     };
-    this.lightArray.push(light);
-    this.nextId++;
+
+    this.httpClient.post("/api/lights", light).subscribe(() => {
+      this.refreshLights();
+    })
   }
 
   removeLight(id: number){
     this.lightArray = this.lightArray.filter(light => light.id != id)
+    this.httpClient.delete("/api/lights/" + id).subscribe(() => {
+      this.refreshLights();
+    })
+  }
+
+  toggleLight(light: any){
+    light.toggled = !light.toggled;
+    this.httpClient.post("/api/lights", light).subscribe((lightReceived: any) => {
+      light = lightReceived;
+    })
   }
 
 }

@@ -20,8 +20,11 @@ export class LightComponent {
   @Output("trigger")
   trigger: EventEmitter<any> = new EventEmitter<any>();
 
-  switchLight(lightObject: any):void {
-    lightObject.toggled = !lightObject.toggled;
+  @Output("toggled")
+  toggled: EventEmitter<any> = new EventEmitter<any>();
+
+  switchLight() {
+    this.toggled.emit()
   }
 
   launchTrigger(){

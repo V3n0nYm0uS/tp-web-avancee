@@ -24,4 +24,9 @@ export class LightPageComponent {
     this.lightService.removeLight(id);
   }
 
+  switchLight(light: any){
+    console.log("switch : " + light);
+    this.lightService.toggleLight(light);
+  }
+
 }

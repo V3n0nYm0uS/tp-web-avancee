@@ -1,12 +1,17 @@
 <div class="flex flex-col items-center justify-center gap-3">
   <div
-    class="rounded-2xl w-40 h-40 flex justify-center items-center transition ease-in"
-    (click)="switchLight(light)"
-    [ngClass]="light.toggled ? '' : 'bg-red-700'"
+    class="hover:rounded-lg rounded-[50%] w-40 h-40 flex justify-center items-center transition-all ease-in"
+    (click)="switchLight()"
+    [ngClass]="light.toggled ? '' : 'bg-red-900'"
     [ngStyle]="{ background: light.toggled ? light.color : '' }"
   >
-    <span class="text-white">{{ light.toggled ? "allumé" : "éteint" }}</span>
+    <div class="text-white">{{ light.toggled ? "Activé" : "Off" }}</div>
   </div>
   <div>{{ light.title }}</div>
-  <div class="p-3 rounded bg-red-400" (click)="launchTrigger()">-</div>
+  <div
+    class="px-6 py-1.5 rounded bg-red-800 text-white"
+    (click)="launchTrigger()"
+  >
+    -
+  </div>
 </div>
